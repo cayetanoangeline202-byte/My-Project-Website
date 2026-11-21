@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CjxkZWZzPgogIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZjZjMWQ1Ii8+CiAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkOTViOWIiLz4KICA8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+CjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE0IiBmaWxsPSIjMTgwYjIwIi8+CjxwYXRoIGQ9Ik0xMCA0NSAxNSAyM2wxMyAxMSA0LTE5IDUgMTkgMTMtMTEgNCAyMnoiIGZpbGw9InVybCgjZykiIHN0cm9rZT0iI2ZmZGNhMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0xNyA0OWgzMCIgc3Ryb2tlPSIjZmZkY2EwIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMzIgNSAzNSAxMSA0MiAxMiAzNyAxNyAzOCAyNCAzMiAyMCAyNiAyNCAyNyAxNyAyMiAxMiAyOSAxMXoiIGZpbGw9IiNmZmRjYTAiLz4KPC9zdmc+">
+<meta name="theme-color" content="#120719">
+<title>The Kingdom of Elyria</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:#120719}
+body{margin:0;background:#120719;color:#fff;font-family:Georgia,'Times New Roman',serif}
+.wrap{width:100%;max-width:1536px;margin:auto;position:relative}
+.art{display:block;width:100%;height:auto;user-select:none}
+.hit{position:absolute;display:block;background:transparent;border:0;cursor:pointer;z-index:5;padding:0}
+.hit:focus{outline:2px solid #ffd3e7;outline-offset:2px}
+.nav-home{left:27%;top:1.3%;width:5%;height:2.6%}.nav-kingdom{left:33%;top:1.3%;width:7%;height:2.6%}.nav-regions{left:41%;top:1.3%;width:6%;height:2.6%}.nav-characters{left:47.8%;top:1.3%;width:8%;height:2.6%}.nav-legends{left:56.5%;top:1.3%;width:7%;height:2.6%}.nav-creatures{left:64.5%;top:1.3%;width:7.5%;height:2.6%}.nav-gallery{left:73%;top:1.3%;width:5.5%;height:2.6%}.nav-contact{left:79%;top:1.3%;width:6%;height:2.6%}
+.enter{left:76%;top:.4%;width:18%;height:3.5%}.explore{left:14.5%;top:18.2%;width:14%;height:3.5%}.discover{left:30%;top:18.2%;width:15%;height:3.5%}
+.section{left:0;width:100%;height:1%;z-index:2}.s-kingdom{top:18.0%}.s-regions{top:28.0%}.s-characters{top:38.0%}.s-legends{top:47.5%}.s-creatures{top:54.0%}.s-gallery{top:62.0%}.s-contact{top:62.0%}
+
+/* Clickable picture areas. These sit over the existing artwork without changing it. */
+.pic{z-index:6;border-radius:2%;}
+.r1{left:3.6%;top:38.9%;width:17.8%;height:9.6%}.r2{left:22.1%;top:38.9%;width:18%;height:9.6%}.r3{left:40.6%;top:38.9%;width:18.4%;height:9.6%}.r4{left:59.4%;top:38.9%;width:18.2%;height:9.6%}.r5{left:78.3%;top:38.9%;width:18.5%;height:9.6%}
+.c1{left:3.6%;top:52.0%;width:23.0%;height:9.7%}.c2{left:27.7%;top:52.0%;width:22.2%;height:9.7%}.c3{left:51.4%;top:52.0%;width:22.2%;height:9.7%}.c4{left:75.1%;top:52.0%;width:22.0%;height:9.7%}
+.cr1{left:2.8%;top:73.0%;width:15.8%;height:7.6%}.cr2{left:19.1%;top:73.0%;width:15.0%;height:7.6%}.cr3{left:35.1%;top:73.0%;width:15.0%;height:7.6%}.cr4{left:51.0%;top:73.0%;width:15.0%;height:7.6%}.cr5{left:66.8%;top:73.0%;width:14.8%;height:7.6%}.cr6{left:82.0%;top:73.0%;width:15.8%;height:7.6%}
+.gallery-hotspot{left:3%;top:83.1%;width:47%;height:11.0%}
+
+/* Modal / expanded story view */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(10,4,15,.82);backdrop-filter:blur(8px);z-index:1000}
+.modal.open{display:flex}
+.modal-card{position:relative;width:min(1080px,96vw);max-height:92vh;overflow:auto;background:linear-gradient(145deg,#24112d,#130817 70%);border:1px solid #d9b56d;box-shadow:0 0 45px rgba(232,154,184,.35),0 20px 80px rgba(0,0,0,.6);border-radius:18px;padding:28px}
+.close{position:absolute;right:16px;top:12px;width:42px;height:42px;border-radius:50%;border:1px solid #d9b56d;background:#301733;color:#fff;font-size:25px;cursor:pointer;z-index:3}.close:hover{background:#7d3c68}
+.modal-grid{display:grid;grid-template-columns:minmax(280px,1fr) minmax(280px,1fr);gap:28px;align-items:center}
+.modal-image{width:100%;max-height:55vh;object-fit:cover;border-radius:12px;border:1px solid rgba(217,181,109,.8);box-shadow:0 0 24px rgba(232,154,184,.2)}
+.modal h2{margin:0 0 8px;color:#ffdca0;font-size:clamp(28px,4vw,48px);letter-spacing:.04em}.modal h3{margin:0 0 16px;color:#f6c1d5;font-size:18px}.modal p{font-size:17px;line-height:1.75;color:#fff4e6;margin:0 0 15px}.modal .eyebrow{color:#e89ab8;text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:bold}
+.story-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.story-item{padding:16px;border:1px solid rgba(217,181,109,.55);border-radius:12px;background:rgba(255,255,255,.035);cursor:pointer}.story-item:hover{background:rgba(232,154,184,.12);transform:translateY(-2px)}.story-item strong{display:block;color:#ffdca0;font-size:18px;margin-bottom:5px}.story-item span{color:#f8ddea;font-size:14px}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:20px}.time{padding:14px 8px;border-top:1px solid #d9b56d;text-align:center}.time strong{display:block;color:#ffdca0;font-size:21px}.time span{font-size:12px;color:#f8ddea}
+
+/* Contact form */
+.contact-form{display:grid;gap:12px}.contact-form label{font-size:13px;color:#f6c1d5;letter-spacing:.06em}.contact-form input,.contact-form textarea{width:100%;border:1px solid rgba(217,181,109,.65);border-radius:8px;background:rgba(255,255,255,.07);color:#fff;padding:13px 14px;font:16px Georgia,serif;outline:none}.contact-form input:focus,.contact-form textarea:focus{border-color:#f6c1d5;box-shadow:0 0 0 2px rgba(246,193,213,.15)}.contact-form textarea{min-height:130px;resize:vertical}.send-btn{border:1px solid #d9b56d;border-radius:999px;padding:13px 22px;background:linear-gradient(90deg,#d95b9b,#ef8db6);color:#fff;font-weight:bold;cursor:pointer;box-shadow:0 0 20px rgba(232,154,184,.25)}.send-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}.success{display:none;margin-top:12px;padding:12px;border:1px solid #d9b56d;border-radius:9px;color:#ffe4ef;background:rgba(232,154,184,.12)}.success.show{display:block}
+
+/* Functional contact form over the unchanged artwork. */
+.page-contact-form{position:absolute;left:68.45%;top:84.55%;width:20.25%;z-index:25;display:grid;gap:0.42%;font-family:Georgia,'Times New Roman',serif}
+.page-contact-form input,.page-contact-form textarea{width:100%;border:1px solid rgba(255,220,235,.28);border-radius:5px;background:rgba(70,20,62,.94);color:#fff;padding:0 10px;font:clamp(8px,1.02vw,14px) Georgia,'Times New Roman',serif;outline:none;box-shadow:inset 0 0 10px rgba(255,180,220,.08)}
+.page-contact-form input{height:2.05vw;min-height:18px;max-height:31px}
+.page-contact-form textarea{height:4.15vw;min-height:40px;max-height:64px;padding-top:7px;resize:none;line-height:1.35}
+.page-contact-form input::placeholder,.page-contact-form textarea::placeholder{color:transparent}
+.page-contact-form input:focus,.page-contact-form textarea:focus{border-color:#ffd3e7;background:rgba(60,12,54,.58);box-shadow:0 0 0 2px rgba(246,193,213,.18),0 0 16px rgba(232,154,184,.2)}
+.page-contact-form button{height:2.25vw;min-height:20px;max-height:34px;margin-top:.25vw;border:0;border-radius:999px;background:transparent;color:transparent;font:700 clamp(6px,.82vw,12px) Georgia,'Times New Roman',serif;letter-spacing:.02em;cursor:pointer;box-shadow:none}
+.page-contact-form button:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.page-contact-form button:focus{outline:2px solid #ffe4ef;outline-offset:2px;background:rgba(255,255,255,.04)}
+.page-success{display:none;margin-top:4px;padding:5px 7px;border:1px solid #d9b56d;border-radius:6px;background:rgba(32,9,28,.86);color:#ffe4ef;font-size:clamp(6px,.72vw,11px);text-align:center}.page-success.show{display:block}
+
+/* High-resolution viewer: uses the enlarged source assets without stretching them past their native size. */
+.modal-image{cursor:zoom-in;image-rendering:auto}.image-viewer{background:rgba(5,2,9,.94);padding:12px}.image-viewer-card{position:relative;width:min(1500px,98vw);height:min(94vh,1200px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(217,181,109,.8);border-radius:16px;background:#08030c;box-shadow:0 0 60px rgba(232,154,184,.28);overflow:hidden}.image-viewer-card #viewerImage{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;image-rendering:auto}.viewer-caption{position:absolute;left:18px;right:18px;bottom:14px;padding:8px 12px;border-radius:8px;background:rgba(10,3,14,.7);color:#ffe4ef;text-align:center;font-size:14px;pointer-events:none}
+
+/* Footer interaction hotspots over the unchanged reference artwork. */
+.footer-hit{position:absolute;z-index:40;display:block;background:transparent;border:0;cursor:pointer;padding:0}
+.footer-hit:focus{outline:2px solid #ffd3e7;outline-offset:2px;border-radius:4px}
+.f-home{left:22.7%;top:96.35%;width:3.0%;height:1.65%}
+.f-kingdom{left:26.2%;top:96.35%;width:4.7%;height:1.65%}
+.f-regions{left:31.3%;top:96.35%;width:4.0%;height:1.65%}
+.f-characters{left:35.7%;top:96.35%;width:5.8%;height:1.65%}
+.f-legends{left:41.8%;top:96.35%;width:4.8%;height:1.65%}
+.f-creatures{left:47.0%;top:96.35%;width:5.6%;height:1.65%}
+.f-gallery{left:53.0%;top:96.35%;width:4.2%;height:1.65%}
+.f-contact{left:57.6%;top:96.35%;width:5.0%;height:1.65%}
+.f-email{left:65.0%;top:96.35%;width:7.0%;height:1.65%}
+.f-phone{left:72.8%;top:96.35%;width:9.0%;height:1.65%}
+.gallery-more{left:18.7%;top:69.5%;width:15.3%;height:2.15%}
+/* Keep every interaction usable on smaller screens. */
+@media(max-width:700px){
+  .wrap{width:100%}.hit{display:block}.nav-home{left:25%;width:7%}.nav-kingdom{left:32%;width:9%}.nav-regions{left:41%;width:8%}.nav-characters{left:49%;width:10%}.nav-legends{left:59%;width:9%}.nav-creatures{left:68%;width:9%}.nav-gallery{left:77%;width:8%}.nav-contact{left:85%;width:9%}.enter{left:73%;top:.35%;width:25%;height:4%}.explore{left:13%;top:18%;width:24%;height:4%}.discover{left:37%;top:18%;width:25%;height:4%}
+  .modal{padding:10px}.modal-card{padding:20px 16px;border-radius:13px}.modal-grid{grid-template-columns:1fr;gap:16px}.modal-image{max-height:38vh}.story-list{grid-template-columns:1fr}.timeline{grid-template-columns:1fr 1fr}.pic{z-index:7}
+  .page-contact-form{left:68.1%;top:84.0%;width:20.8%;gap:.28%}.page-contact-form input{min-height:14px;height:2.3vw}.page-contact-form textarea{min-height:28px;height:4.4vw}.page-contact-form button{min-height:16px;height:2.5vw}.page-success{font-size:5px;padding:3px}.image-viewer-card{width:98vw;height:94vh;border-radius:10px}.viewer-caption{font-size:11px;bottom:8px}
+}
+
+@media(max-width:700px){
+  .footer-hit{min-width:18px;min-height:18px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.story-item,.send-btn{transition:none}}
+
+/* Header/footer hotspot and modal-button cleanup:
+   prevent browser-native white button surfaces and overlapping focus/tap highlights. */
+.hit,
+.footer-hit {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.hit:active,
+.footer-hit:active {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.hit:focus,
+.footer-hit:focus {
+  outline: none !important;
+}
+.hit:focus-visible,
+.footer-hit:focus-visible {
+  outline: 2px solid #ffd3e7 !important;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Modal option buttons should remain dark and contained, not show white native boxes. */
+.story-item {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  color: #f8ddea;
+  font: inherit;
+  text-align: left;
+  border: 1px solid rgba(217,181,109,.55);
+  border-radius: 12px;
+  padding: 16px;
+  background: rgba(255,255,255,.035);
+  box-shadow: none;
+  white-space: normal;
+}
+.story-item:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(246,193,213,.35);
+}
+.story-item:focus-visible {
+  outline: 2px solid #ffd3e7;
+  outline-offset: 3px;
+}
+
+</style>
+</head>
+<body>
+<main class="wrap" id="home">
+  <img class="art" src="assets/elyria-reference-hq.jpg" alt="The Kingdom of Elyria — Where Legends Awaken">
+
+  <!-- Original navigation / hero buttons remain in their exact visual positions. -->
+  <button class="hit nav-home" data-scroll="home" aria-label="Home"></button>
+  <button class="hit nav-kingdom" data-scroll="kingdom" aria-label="Kingdom"></button>
+  <button class="hit nav-regions" data-scroll="regions" aria-label="Regions"></button>
+  <button class="hit nav-characters" data-scroll="characters" aria-label="Characters"></button>
+  <button class="hit nav-legends" data-open="legends" aria-label="Legends"></button>
+  <button class="hit nav-creatures" data-scroll="creatures" aria-label="Creatures"></button>
+  <button class="hit nav-gallery" data-open="gallery" aria-label="Gallery"></button>
+  <button class="hit nav-contact" data-open="contact" aria-label="Contact"></button>
+  <button class="hit enter" data-open="realms" aria-label="Enter the Kingdom"></button>
+  <button class="hit explore" data-open="realms" aria-label="Explore Elyria"></button>
+  <button class="hit discover" data-open="legends" aria-label="Discover the Legend"></button>
+
+  <!-- Five Realms clickable pictures -->
+  <button class="hit pic r1" data-story="aurelia" aria-label="Open Aurelia story"></button>
+  <button class="hit pic r2" data-story="evermist" aria-label="Open Evermist story"></button>
+  <button class="hit pic r3" data-story="frostholm" aria-label="Open Frostholm story"></button>
+  <button class="hit pic r4" data-story="dravenfall" aria-label="Open Dravenfall story"></button>
+  <button class="hit pic r5" data-story="azurea" aria-label="Open Azurea story"></button>
+
+  <!-- Royal Court clickable pictures -->
+  <button class="hit pic c1" data-story="queen-elara" aria-label="Open Queen Elara story"></button>
+  <button class="hit pic c2" data-story="sir-kaelen" aria-label="Open Sir Kaelen story"></button>
+  <button class="hit pic c3" data-story="lyra" aria-label="Open Lyra story"></button>
+  <button class="hit pic c4" data-story="draven" aria-label="Open Draven story"></button>
+
+  <!-- Creatures clickable pictures -->
+  <button class="hit pic cr1" data-story="dragons" aria-label="Open Dragons legend"></button>
+  <button class="hit pic cr2" data-story="moon-unicorns" aria-label="Open Moon Unicorns legend"></button>
+  <button class="hit pic cr3" data-story="shadow-wolves" aria-label="Open Shadow Wolves legend"></button>
+  <button class="hit pic cr4" data-story="sky-guardians" aria-label="Open Sky Guardians legend"></button>
+  <button class="hit pic cr5" data-story="stone-giants" aria-label="Open Stone Giants legend"></button>
+  <button class="hit pic cr6" data-story="forest-spirits" aria-label="Open Forest Spirits legend"></button>
+  <button class="hit pic gallery-hotspot" data-open="gallery" aria-label="Open the Elyria gallery"></button>
+
+  <!-- Section navigation -->
+  <a id="kingdom" class="hit section s-kingdom" href="#regions" aria-label="Kingdom section"></a>
+  <a id="regions" class="hit section s-regions" href="#characters" aria-label="Regions section"></a>
+  <a id="characters" class="hit section s-characters" href="#legends" aria-label="Characters section"></a>
+  <button id="legends" class="hit section s-legends" data-open="legends" aria-label="Legends section"></button>
+  <a id="creatures" class="hit section s-creatures" href="#gallery" aria-label="Creatures section"></a>
+  <button id="gallery" class="hit section s-gallery" data-open="gallery" aria-label="Gallery section"></button>
+  <button id="contact" class="hit section s-contact" data-open="contact" aria-label="Contact section"></button>
+
+  <!-- Functional form placed directly over the existing SEND A MESSAGE TO ELYRIA artwork. -->
+  <form class="page-contact-form" id="pageContactForm" aria-label="Send a message to Elyria">
+    <input id="pageName" name="name" type="text" autocomplete="name" aria-label="Your Name" required>
+    <input id="pageEmail" name="email" type="email" autocomplete="email" aria-label="Your Email" required>
+    <input id="pageSubject" name="subject" type="text" aria-label="Subject" required>
+    <textarea id="pageMessage" name="message" aria-label="Message" required></textarea>
+    <button type="submit" aria-label="Send to the Royal Court">SEND TO THE ROYAL COURT ✦</button>
+    <div class="page-success" id="pageSuccess" role="status">YOUR MESSAGE HAS REACHED THE ROYAL COURT ✨</div>
+  </form>
+
+  <!-- Functional footer controls over the existing footer artwork. -->
+  <button class="footer-hit f-home" data-scroll="home" aria-label="Footer Home"></button>
+  <button class="footer-hit f-kingdom" data-scroll="kingdom" aria-label="Footer Kingdom"></button>
+  <button class="footer-hit f-regions" data-scroll="regions" aria-label="Footer Regions"></button>
+  <button class="footer-hit f-characters" data-scroll="characters" aria-label="Footer Characters"></button>
+  <button class="footer-hit f-legends" data-open="legends" aria-label="Footer Legends"></button>
+  <button class="footer-hit f-creatures" data-scroll="creatures" aria-label="Footer Creatures"></button>
+  <button class="footer-hit f-gallery" data-open="gallery" aria-label="Footer Gallery"></button>
+  <button class="footer-hit f-contact" data-open="contact" aria-label="Footer Contact"></button>
+  <button class="footer-hit f-email" data-copy="angeline@1" aria-label="Copy Royal Email"></button>
+  <button class="footer-hit f-phone" data-copy="+12345678909" aria-label="Copy Royal Messenger"></button>
+  <button class="footer-hit gallery-more" data-open="gallery" aria-label="View more gallery"></button>
+</main>
+
+<!-- One reusable expanded story window -->
+<div class="modal" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="storyTitle">
+  <div class="modal-card">
+    <button class="close" data-close aria-label="Close">×</button>
+    <div class="modal-grid">
+      <img class="modal-image" id="storyImage" alt="">
+      <div>
+        <div class="eyebrow" id="storyEyebrow">The Kingdom of Elyria</div>
+        <h2 id="storyTitle"></h2>
+        <h3 id="storySubtitle"></h3>
+        <p id="storyText"></p>
+        <p id="storyLegend"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- High-resolution image viewer -->
+<div class="modal image-viewer" id="imageViewer" role="dialog" aria-modal="true" aria-label="Full image viewer">
+  <div class="image-viewer-card">
+    <button class="close" data-close aria-label="Close image viewer">×</button>
+    <img id="viewerImage" alt="">
+    <div class="viewer-caption" id="viewerCaption"></div>
+  </div>
+</div>
+
+<!-- Explore Elyria: all five realms -->
+<div class="modal" id="realmsModal" role="dialog" aria-modal="true" aria-labelledby="realmsTitle">
+  <div class="modal-card">
+    <button class="close" data-close aria-label="Close">×</button>
+    <div class="eyebrow">Explore Elyria</div>
+    <h2 id="realmsTitle">THE FIVE REALMS</h2>
+    <p>Five lands, five destinies, one kingdom. Select a realm to open its full picture and myth.</p>
+    <div class="story-list" id="realmList"></div>
+  </div>
+</div>
+
+<!-- Royal Court & Legends -->
+<div class="modal" id="legendsModal" role="dialog" aria-modal="true" aria-labelledby="legendsTitle">
+  <div class="modal-card">
+    <button class="close" data-close aria-label="Close">×</button>
+    <div class="eyebrow">The Royal Court & Legends</div>
+    <h2 id="legendsTitle">HEROES, RULERS, AND THE PROPHECY</h2>
+    <p>Meet the four figures whose choices shape Elyria, then follow the ancient prophecy from the founding to its awakening.</p>
+    <div class="story-list" id="courtList"></div>
+    <div class="timeline">
+      <div class="time"><strong>847</strong><span>The Founding</span></div>
+      <div class="time"><strong>1024</strong><span>The Dragon War</span></div>
+      <div class="time"><strong>1347</strong><span>The Great Darkness</span></div>
+      <div class="time"><strong>1582</strong><span>The Alliance</span></div>
+      <div class="time"><strong>NOW</strong><span>The Awakening</span></div>
+    </div>
+    <p style="margin-top:20px;color:#ffdca0;font-style:italic">“When the moon turns crimson, and the five kingdoms unite, the Guardian shall rise...”</p>
+  </div>
+</div>
+
+<!-- Full gallery -->
+<div class="modal" id="galleryModal" role="dialog" aria-modal="true" aria-labelledby="galleryTitle">
+  <div class="modal-card">
+    <button class="close" data-close aria-label="Close">×</button>
+    <div class="eyebrow">The Lands of Elyria</div>
+    <h2 id="galleryTitle">THE ELYRIA GALLERY</h2>
+    <p>Click any featured image to view it larger with its legend.</p>
+    <div class="story-list" id="galleryList"></div>
+  </div>
+</div>
+
+<!-- Working frontend-only contact form -->
+<div class="modal" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+  <div class="modal-card">
+    <button class="close" data-close aria-label="Close">×</button>
+    <div class="modal-grid">
+      <div>
+        <div class="eyebrow">The Royal Court Awaits</div>
+        <h2 id="contactTitle">SEND A MESSAGE TO ELYRIA</h2>
+        <p>Royal Court<br>Aurelian Castle<br>Kingdom of Elyria</p>
+        <p><strong style="color:#ffdca0">Royal Email:</strong> angeline@1<br><strong style="color:#ffdca0">Royal Messenger:</strong> +12345678909</p>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <label for="name">YOUR NAME</label>
+        <input id="name" name="name" type="text" autocomplete="name" required>
+        <label for="email">YOUR EMAIL</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+        <label for="subject">SUBJECT</label>
+        <input id="subject" name="subject" type="text" required>
+        <label for="message">MESSAGE</label>
+        <textarea id="message" name="message" required></textarea>
+        <button class="send-btn" type="submit">SEND TO THE ROYAL COURT ✦</button>
+        <div class="success" id="success">YOUR MESSAGE HAS REACHED THE ROYAL COURT ✨</div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+const stories={
+  aurelia:{title:'AURELIA',subtitle:'Royal Capital',image:'assets/crops/aurelia.jpg',text:'Aurelia is the heart of Elyria, where the royal palace rises above gardens, fountains, and luminous streets. It is the seat of Queen Elara and the place where the five realms gather.',legend:'Legend: The first crown of Elyria was said to have been forged from a fallen star and placed in Aurelia after the kingdom was founded.'},
+  evermist:{title:'EVERMIST',subtitle:'Enchanted Forest',image:'assets/crops/evermist.jpg',text:'Evermist is an ancient forest filled with glowing flowers, hidden ruins, wandering spirits, and paths that seem to move with the moonlight. Only those who respect the forest are said to find its secret heart.',legend:'Myth: The forest remembers every promise spoken beneath its trees, and forgotten promises can awaken the spirits of Evermist.'},
+  frostholm:{title:'FROSTHOLM',subtitle:'Frozen North',image:'assets/crops/frostholm.jpg',text:'Frostholm lies beneath snow-covered mountains and crystal skies. Frozen castles, icy waterfalls, and deep crystal caves make it one of the most mysterious regions of Elyria.',legend:'Legend: Deep inside the crystal caves sleeps an ancient guardian who wakes whenever the northern lights turn violet.'},
+  dravenfall:{title:'DRAVENFALL',subtitle:'Dragon Realm',image:'assets/crops/dravenfall.jpg',text:'Dravenfall is a land of volcanic peaks, glowing rivers, and dragon-haunted skies. Its people learned to live beside the great fire-breathing creatures rather than conquer them.',legend:'Legend: The oldest dragons of Dravenfall are believed to remember the First Dragon War and guard secrets about the coming prophecy.'},
+  azurea:{title:'AZUREA',subtitle:'Coastal Kingdom',image:'assets/crops/azurea.jpg',text:'Azurea stretches along crystal-blue waters, cliffs, islands, and bright coastal cities. Its sailors are known for navigating enchanted seas where the horizon glows pink at sunset.',legend:'Myth: On the quietest nights, a moonlit path appears across the sea and leads to an island that exists only for one hour.'},
+  'queen-elara':{title:'QUEEN ELARA',subtitle:'Queen of Elyria',image:'assets/crops/queen-elara.jpg',text:'Queen Elara is the royal heart of Elyria. Wise, compassionate, and determined, she protects the alliance between the five realms and carries the responsibility of keeping the prophecy from becoming a curse.',legend:'Legend: The royal crown is said to shine brighter whenever Elara chooses the kingdom over herself.'},
+  'sir-kaelen':{title:'SIR KAELEN',subtitle:'Royal Knight',image:'assets/crops/sir-kaelen.jpg',text:'Sir Kaelen is a loyal knight of the royal court. He protects the capital and travels between the realms when the kingdom needs a champion who can unite courage with diplomacy.',legend:'Legend: His sword was tempered in a dragon-forged flame and will never break while he fights for an innocent life.'},
+  lyra:{title:'LYRA',subtitle:'Enchanted Mage',image:'assets/crops/lyra.jpg',text:'Lyra is a gifted mage whose magic glows in shades of pink and violet. She studies the old symbols of Elyria and searches for the meaning hidden inside the ancient prophecy.',legend:'Myth: Lyra can hear the whispers of forgotten spells whenever the moon is full.'},
+  draven:{title:'DRAVEN',subtitle:'Dragon Rider',image:'assets/crops/draven.jpg',text:'Draven is a fearless dragon rider from the volcanic realm. He understands the dragons better than most people and often serves as a bridge between the royal court and the creatures of the mountains.',legend:'Legend: His bond with his dragon began on the night of a crimson moon—the same omen named in the prophecy.'},
+  dragons:{title:'DRAGONS',subtitle:'Ancient Creatures of Fire and Sky',image:'assets/crops/dragons.jpg',text:'Dragons are among the oldest beings in Elyria. Their wings darken the skies above Dravenfall, while their ancient memories preserve stories from wars that no human historian witnessed.',legend:'Legend: The oldest dragon is said to know the true identity of the Guardian named in the prophecy.'},
+  'moon-unicorns':{title:'MOON UNICORNS',subtitle:'Mystical Creatures Beneath the Full Moon',image:'assets/crops/moon-unicorns.jpg',text:'Moon Unicorns appear in the quietest forests and snowy valleys. Their silver-white coats glow beneath moonlight, and their presence is believed to calm magical storms.',legend:'Myth: A Moon Unicorn grants one pure wish to a traveler who reaches it without carrying greed in their heart.'},
+  'shadow-wolves':{title:'SHADOW WOLVES',subtitle:'Guardians of the Forests',image:'assets/crops/shadow-wolves.jpg',text:'Shadow Wolves move silently through Evermist. They are feared by outsiders but respected by forest spirits, who see them as protectors of sacred paths.',legend:'Legend: A Shadow Wolf will guide a lost traveler home only if the traveler tells the truth about why they entered the forest.'},
+  'sky-guardians':{title:'SKY GUARDIANS',subtitle:'Protectors of the Skies',image:'assets/crops/sky-guardians.jpg',text:'Sky Guardians are enormous magical birds that circle the highest mountains and watch over Elyria from above. Their wings are said to carry protective magic across the kingdom.',legend:'Myth: When the Sky Guardians fly in a circle above the capital, danger is approaching from beyond the kingdom.'},
+  'stone-giants':{title:'STONE GIANTS',subtitle:'Ancient Beings of Strength',image:'assets/crops/stone-giants.jpg',text:'Stone Giants sleep beneath mountains and awaken only when the land itself is threatened. Their strength is legendary, but their wisdom is even more valuable.',legend:'Legend: A Stone Giant can remember the history of a mountain from the day it was born.'},
+  'forest-spirits':{title:'FOREST SPIRITS',subtitle:'Tiny Beings of Nature',image:'assets/crops/forest-spirits.jpg',text:'Forest Spirits are small magical beings connected to flowers, trees, and streams. They are playful guardians of the natural world and keep Evermist alive with ancient magic.',legend:'Myth: Every glowing spirit carries one forgotten memory from the forest, waiting for the right person to discover it.'}
+};
+const modalMap={story:'storyModal',realms:'realmsModal',legends:'legendsModal',gallery:'galleryModal',contact:'contactModal'};
+const storyModal=document.getElementById('storyModal');
+function openStory(key){const s=stories[key];if(!s)return;const img=document.getElementById('storyImage');img.src=s.image;img.alt=s.title;img.dataset.full=s.image;img.dataset.caption=s.title+' — '+s.subtitle;document.getElementById('storyEyebrow').textContent='The Kingdom of Elyria';document.getElementById('storyTitle').textContent=s.title;document.getElementById('storySubtitle').textContent=s.subtitle;document.getElementById('storyText').textContent=s.text;document.getElementById('storyLegend').textContent=s.legend;openModal('storyModal');}
+function openModal(id){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('open'));const m=document.getElementById(id);m.classList.add('open');document.body.style.overflow='hidden';const focus=m.querySelector('button, input, textarea');if(focus)setTimeout(()=>focus.focus(),30);}
+function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('open'));document.body.style.overflow='';}
+document.querySelectorAll('[data-story]').forEach(el=>el.addEventListener('click',()=>openStory(el.dataset.story)));
+document.querySelectorAll('[data-open]').forEach(el=>el.addEventListener('click',e=>{
+  e.preventDefault();
+  const target=modalMap[el.dataset.open]||el.dataset.open;
+  if(document.getElementById(target)) openModal(target);
+}));
+// Footer navigation: keep every footer item independently clickable.
+document.querySelectorAll('.footer-hit[data-open]').forEach(el=>el.addEventListener('click',e=>{
+  e.preventDefault();
+  const target=modalMap[el.dataset.open]||el.dataset.open;
+  if(document.getElementById(target)) openModal(target);
+}));
+document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closeModal));
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal();}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+function buildItems(containerId,keys){const box=document.getElementById(containerId);box.innerHTML='';keys.forEach(k=>{const s=stories[k];const item=document.createElement('button');item.type='button';item.className='story-item';item.innerHTML=`<strong>${s.title}</strong><span>${s.subtitle}</span>`;item.addEventListener('click',()=>openStory(k));box.appendChild(item);});}
+buildItems('realmList',['aurelia','evermist','frostholm','dravenfall','azurea']);
+buildItems('courtList',['queen-elara','sir-kaelen','lyra','draven']);
+buildItems('galleryList',['aurelia','evermist','frostholm','dravenfall','azurea','dragons','moon-unicorns','shadow-wolves','sky-guardians','stone-giants','forest-spirits']);
+
+const form=document.getElementById('contactForm');
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!form.checkValidity()){form.reportValidity();return;}
+  document.getElementById('success').classList.add('show');
+  form.reset();
+});
+
+const pageForm=document.getElementById('pageContactForm');
+pageForm.addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!pageForm.checkValidity()){pageForm.reportValidity();return;}
+  document.getElementById('pageSuccess').classList.add('show');
+  pageForm.reset();
+});
+
+document.querySelectorAll('[data-scroll]').forEach(el=>el.addEventListener('click',e=>{
+  e.preventDefault();
+  const target=document.getElementById(el.dataset.scroll);
+  if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+}));
+
+document.querySelectorAll('[data-copy]').forEach(el=>el.addEventListener('click',async e=>{
+  e.preventDefault();
+  const value=el.dataset.copy;
+  try{await navigator.clipboard.writeText(value);}catch(_){}
+  const old=el.getAttribute('aria-label')||'Copied';
+  el.setAttribute('aria-label','Copied: '+value);
+  setTimeout(()=>el.setAttribute('aria-label',old),1400);
+}));
+
+const storyImage=document.getElementById('storyImage');
+storyImage.addEventListener('click',()=>{
+  if(!storyImage.src)return;
+  document.getElementById('viewerImage').src=storyImage.dataset.full||storyImage.src;
+  document.getElementById('viewerImage').alt=storyImage.alt;
+  document.getElementById('viewerCaption').textContent=storyImage.dataset.caption||storyImage.alt;
+  openModal('imageViewer');
+});
+
+</script>
+</body>
+</html>
